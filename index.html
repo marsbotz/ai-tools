@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tools Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-okaidia.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>AI Tools Hub</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="active" data-section="chat">AI Chat</a></li>
+                <li><a href="#" data-section="image-generator">Image Generator</a></li>
+                <li><a href="#" data-section="text-tools">Text Tools</a></li>
+                <li><a href="#" data-section="code-tools">Code Tools</a></li>
+                <li><a href="#" data-section="other-tools">Other Tools</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Chat Section -->
+        <section id="chat" class="tool-section active">
+            <div class="container">
+                <h2>AI Chat Assistant</h2>
+                <div class="chat-container">
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="message bot">
+                            <div class="message-content">
+                                <p>Hello! I'm your AI assistant. How can I help you today?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tool-container">
+                       
+                        <select id="modelSelect">
+                          <option value=""> Select Model </option>
+                          <option value="flux">Flux</option>
+                          <option value="dall-e-3">DALL·E 3</option>
+                          <option value="shuttle-3.1">Shuttle 3.1</option>
+                        </select>
+                        <div class="result" id="modelOutput"></div>
+                      </div>
+                    <div class="chat-input">
+                        <textarea id="user-input" placeholder="Type your message here..."></textarea>
+                        <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Image Generator Section -->
+        <section id="image-generator" class="tool-section">
+            <div class="container">
+                <h2>AI Image Generator</h2>
+                <div class="image-generator-container">
+                    <div class="prompt-input">
+                        <textarea id="image-prompt" placeholder="Describe the image you want to generate..."></textarea>
+                        <div class="image-options">
+                            <select id="image-size">
+                                <option value="small">Small (256x256)</option>
+                                <option value="medium" selected>Medium (512x512)</option>
+                                <option value="large">Large (1024x1024)</option>
+                            </select>
+                            <div class="style-container">
+                                <select id="image-style">
+                                    <option value="realistic">Realistic</option>
+                                    <option value="artistic">Artistic</option>
+                                    <option value="cartoon">Cartoon</option>
+                                    <option value="abstract">Abstract</option>
+                                </select>
+                                <label class="style-checkbox">
+                                    <input type="checkbox" id="disable-style" checked>
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="provider-options">
+                            <span>Provider:</span>
+                            <div class="provider-buttons">
+                                <button class="provider-btn active" data-provider="flux">FLUX</button>
+                                <button class="provider-btn" data-provider="dall-e-3">DALL-E 3</button>
+                                <button class="provider-btn" data-provider="shuttle-3.1">Shuttle 3.1</button>
+                            </div>
+                        </div>
+                        <button id="generate-btn">Generate Image</button>
+                    </div>
+                    <div class="image-results">
+                        <div id="image-output" class="image-output">
+                            <p class="placeholder-text">Your generated images will appear here</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Text Tools Section -->
+        <section id="text-tools" class="tool-section">
+            <div class="container">
+                <h2>Text Processing Tools</h2>
+                <div class="tools-grid">
+                    <div class="tool-card" data-tool="summarizer">
+                        <div class="tool-icon"><i class="fas fa-file-alt"></i></div>
+                        <h3>Text Summarizer</h3>
+                        <p>Condense long texts into concise summaries</p>
+                    </div>
+                    <div class="tool-card" data-tool="translator">
+                        <div class="tool-icon"><i class="fas fa-language"></i></div>
+                        <h3>Language Translator</h3>
+                        <p>Translate text between multiple languages</p>
+                    </div>
+                    <div class="tool-card" data-tool="grammar">
+                        <div class="tool-icon"><i class="fas fa-spell-check"></i></div>
+                        <h3>Grammar Checker</h3>
+                        <p>Fix grammar and spelling errors in your text</p>
+                    </div>
+                    <div class="tool-card" data-tool="sentiment">
+                        <div class="tool-icon"><i class="fas fa-smile"></i></div>
+                        <h3>Sentiment Analysis</h3>
+                        <p>Analyze the emotional tone of your text</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Code Tools Section -->
+        <section id="code-tools" class="tool-section">
+            <div class="container">
+                <h2>Code Tools</h2>
+                <div class="tools-grid">
+                    <div class="tool-card" data-tool="code-generator">
+                        <div class="tool-icon"><i class="fas fa-code"></i></div>
+                        <h3>Code Generator</h3>
+                        <p>Generate code snippets from descriptions</p>
+                    </div>
+                    <div class="tool-card" data-tool="code-explainer">
+                        <div class="tool-icon"><i class="fas fa-question-circle"></i></div>
+                        <h3>Code Explainer</h3>
+                        <p>Get explanations for complex code</p>
+                    </div>
+                    <div class="tool-card" data-tool="code-debugger">
+                        <div class="tool-icon"><i class="fas fa-bug"></i></div>
+                        <h3>Code Debugger</h3>
+                        <p>Find and fix bugs in your code</p>
+                    </div>
+                    <div class="tool-card" data-tool="code-optimizer">
+                        <div class="tool-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        <h3>Code Optimizer</h3>
+                        <p>Improve the efficiency of your code</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Other Tools Section -->
+        <section id="other-tools" class="tool-section">
+            <div class="container">
+                <h2>Other AI Tools</h2>
+                <div class="tools-grid">
+                    <div class="tool-card" data-tool="speech-to-text">
+                        <div class="tool-icon"><i class="fas fa-microphone"></i></div>
+                        <h3>Speech to Text</h3>
+                        <p>Convert spoken words to written text</p>
+                    </div>
+                    <div class="tool-card" data-tool="text-to-speech">
+                        <div class="tool-icon"><i class="fas fa-volume-up"></i></div>
+                        <h3>Text to Speech</h3>
+                        <p>Convert text to natural-sounding speech</p>
+                    </div>
+                    <div class="tool-card" data-tool="data-visualizer">
+                        <div class="tool-icon"><i class="fas fa-chart-bar"></i></div>
+                        <h3>Data Visualizer</h3>
+                        <p>Create visual representations of data</p>
+                    </div>
+                    <div class="tool-card" data-tool="pdf-analyzer">
+                        <div class="tool-icon"><i class="fas fa-file-pdf"></i></div>
+                        <h3>PDF Analyzer</h3>
+                        <p>Extract and analyze content from PDF files</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Modal -->
+        <div id="tool-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2 id="modal-title">Tool Title</h2>
+                <div id="modal-body">
+                    <!-- Modal content will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 AI Tools Hub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-java.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-csharp.min.js"></script>
+    <script src="config.js" type="module"></script>
+    <script src="services.js" type="module"></script>
+    <script src="script.js" type="module"></script>
+</body>
+</html>
