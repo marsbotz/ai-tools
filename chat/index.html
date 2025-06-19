@@ -6,7 +6,37 @@
   <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-  <h1>🤖 AI Chat Assistant</h1>
+   <section id="chat" class="tool-section active">
+            <div class="container">Add commentMore actions
+                <h2>AI Chat Assistant</h2>
+                <div class="chat-container">
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="message bot">
+                            <div class="message-content">
+                                <p>Hello! I'm your AI assistant. How can I help you today?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tool-container">
+                       
+                        <select id="modelSelect">
+                          <option value=""> Select Model </option>
+                          <option value="flux">Flux</option>
+                          <option value="dall-e-3">DALL·E 3</option>
+                          <option value="shuttle-3.1">Shuttle 3.1</option>
+                        </select>
+                        <div class="result" id="modelOutput"></div>
+                      </div>
+                    <div class="chat-input">
+                        <textarea id="user-input" placeholder="Type your message here..."></textarea>
+                        <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
   <!-- Chat UI yahan daalein -->
+  <script src="/ai-tools/script.js"></script>
+  <script src="/ai-tools/config.js" type="module"></script>
+  <script src="/ai-tools/services.js" type="module"></script>
 </body>
 </html>
