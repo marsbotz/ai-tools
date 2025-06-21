@@ -7,16 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-okaidia.min.css">
-<style>
-    body { font-family: Arial; padding: 20px; background: #f0f0f0; }
-    #chat { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; }
-    .message { margin: 10px 0; }
-    .user { color: blue; }
-    .bot { color: green; }
-    .loading { color: gray; font-style: italic; }
-  </style>
 </head>
-    
 <body>
     <header>
         <div class="logo">
@@ -34,12 +25,35 @@
     </header>
 
     <main>
-        <div id="chat">
-    <h2>AI Chatbot</h2>
-    <div id="messages"></div>
-    <input id="input" placeholder="Type a message..." style="width: 80%;" />
-    <button onclick="sendMessage()">Send</button>
-  </div>
+        <!-- Chat Section -->
+        <section id="chat" class="tool-section active">
+            <div class="container">
+                <h2>AI Chat Assistant</h2>
+                <div class="chat-container">
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="message bot">
+                            <div class="message-content">
+                                <p>Hello! I'm your AI assistant. How can I help you today?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tool-container">
+                       
+                        <select id="modelSelect">
+                          <option value=""> Select Model </option>
+                          <option value="flux">Flux</option>
+                          <option value="dall-e-3">DALL·E 3</option>
+                          <option value="shuttle-3.1">Shuttle 3.1</option>
+                        </select>
+                        <div class="result" id="modelOutput"></div>
+                      </div>
+                    <div class="chat-input">
+                        <textarea id="user-input" placeholder="Type your message here..."></textarea>
+                        <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- Image Generator Section -->
         <section id="image-generator" class="tool-section">
@@ -199,34 +213,5 @@
     <script src="config.js" type="module"></script>
     <script src="services.js" type="module"></script>
     <script src="script.js" type="module"></script>
-    <script>
-        <script>
-    async function sendMessage() {
-      const input = document.getElementById("input");
-      const messages = document.getElementById("messages");
-      const userMsg = input.value.trim();
-      if (!userMsg) return;
-
-      messages.innerHTML += `<div class="message user"><b>You:</b> ${userMsg}</div>`;
-      messages.innerHTML += `<div id="loading" class="message loading">Bot is typing...</div>`;
-      input.value = "";
-
-      try {
-        const res = await fetch("https://chatbot-worker.aalam04042002.workers.dev", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt: userMsg }),
-        });
-
-        const data = await res.json();
-        document.getElementById("loading").remove();
-        messages.innerHTML += `<div class="message bot"><b>Bot:</b> ${data.reply}</div>`;
-      } catch (e) {
-        document.getElementById("loading").remove();
-        messages.innerHTML += `<div class="message bot"><b>Bot:</b> Error occurred!</div>`;
-      }
-    }
-  </script>
-    </script>
 </body>
 </html>
