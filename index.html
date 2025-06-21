@@ -7,108 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-okaidia.min.css">
-<style>
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #0e0f14, #1e1f29);
-      color: #fff;
-      padding: 20px;
-    }
 
-    .title {
-      text-align: center;
-      font-size: 2.5rem;
-      margin-bottom: 40px;
-      font-weight: 600;
-      color: #f4f4f4;
-    }
-
-    .card-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
-    }
-
-    .card {
-      background: #1f222d;
-      border-radius: 16px;
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-    }
-
-    .card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
-
-    .card h2 {
-      margin: 16px;
-      font-size: 1.3rem;
-      color: #61dafb;
-    }
-
-    .card p {
-      margin: 0 16px 16px;
-      font-size: 0.95rem;
-      line-height: 1.5;
-    }
-
-    .tag {
-      display: inline-block;
-      margin: 0 16px 12px;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      background-color: #292c3a;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .anime { background-color: #9c27b0; }
-    .chatbot { background-color: #3f51b5; }
-    .analytics { background-color: #2196f3; }
-
-    .card-footer {
-      margin: auto 16px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .visit-btn {
-      background: #4caf50;
-      color: white;
-      padding: 6px 16px;
-      border-radius: 8px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: background 0.3s ease;
-    }
-
-    .visit-btn:hover {
-      background: #43a047;
-    }
-
-    .heart {
-      font-size: 1.4rem;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-
-    .heart:hover {
-      transform: scale(1.2);
-      color: #ff5e5e;
-    }
-  </style>
 </head>
     
 <body>
@@ -128,18 +27,12 @@
     </header>
 
     <main>
-        <!-- Chat Section -->
-       <!-- Card 1 -->
-    <div class="card">
-      <img src="https://via.placeholder.com/400x200" alt="Tool Image">
-      <h2>Lovein.ai</h2>
-      <p>Offers personalized, interactive character experiences across multiple genres.</p>
-      <span class="tag anime">anime</span>
-      <div class="card-footer">
-        <a href="/ai-tools/chat/" class="visit-btn">Use</a>
-        <span class="heart">🤍</span>
-      </div>
-    </div>
+        <div id="chat">
+    <h2>AI Chatbot</h2>
+    <div id="messages"></div>
+    <input id="input" placeholder="Type a message..." style="width: 80%;" />
+    <button onclick="sendMessage()">Send</button>
+  </div>
 
         <!-- Image Generator Section -->
         <section id="image-generator" class="tool-section">
@@ -299,5 +192,34 @@
     <script src="config.js" type="module"></script>
     <script src="services.js" type="module"></script>
     <script src="script.js" type="module"></script>
+    <script>
+        <script>
+    async function sendMessage() {
+      const input = document.getElementById("input");
+      const messages = document.getElementById("messages");
+      const userMsg = input.value.trim();
+      if (!userMsg) return;
+
+      messages.innerHTML += `<div class="message user"><b>You:</b> ${userMsg}</div>`;
+      messages.innerHTML += `<div id="loading" class="message loading">Bot is typing...</div>`;
+      input.value = "";
+
+      try {
+        const res = await fetch("https://chatbot-worker.aalam04042002.workers.dev", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt: userMsg }),
+        });
+
+        const data = await res.json();
+        document.getElementById("loading").remove();
+        messages.innerHTML += `<div class="message bot"><b>Bot:</b> ${data.reply}</div>`;
+      } catch (e) {
+        document.getElementById("loading").remove();
+        messages.innerHTML += `<div class="message bot"><b>Bot:</b> Error occurred!</div>`;
+      }
+    }
+  </script>
+    </script>
 </body>
 </html>
